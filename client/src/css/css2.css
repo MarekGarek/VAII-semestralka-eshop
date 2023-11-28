@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+}
+
+.p-3 {
+    margin-top: 0vh;
+    width: 100%;
+    height: auto;
+}
+
+.logo {
+    font-size: xx-large;
+    color: black;
+}
+
+.logo2 {
+    font-weight: bold;
+}
+
+.carousel .carousel-item img {
+    object-fit: cover;
+    object-position: center;
+    height: 500px;
+    min-width: auto;
+}
+
+.dropbtn {
+    color: black;
+    padding: 2vh;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown2 {
+    padding-left: 7%;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dropdown2:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown2:hover .dropbtn {
+    color: black;
+}
+
+.blog  {
+    color: black;
+    text-decoration: none;
+}
+
+.blog:hover  {
+    color: black;
+}
+
+.card-text {
+    background-color: white;
+    font-size: small;
+}
+
+a {
+    color: black !important;
+    text-decoration: none !important;
+}

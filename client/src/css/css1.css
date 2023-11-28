@@ -1,0 +1,134 @@
+.grid-container1 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+}
+.grid-item1 {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.grid-container2 {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 5px;
+}
+.grid-item2 {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    font-size: medium;
+    text-align: center;
+}
+
+.grid-container3 {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
+.grid-cards {
+    padding: 20px;
+    font-size: small;
+    text-align: center;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+}
+
+.odsek-text {
+    font-weight: normal;
+    font-size: large;
+}
+
+.card-text {
+    font-weight: normal;
+}
+
+.card-img {
+    width: 100%;
+    height: 300px;
+}
+
+.mininadpis {
+    font-weight: bold;
+    font-size: xx-large;
+    text-align: center;
+    background-color: #4CAF50;
+    width: 100%;
+}
+
+.dropbtn {
+    background-color: white;
+    width: auto;
+    margin: 0;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 1200px) {
+    .grid-container1 {
+        grid-template-columns: auto auto;
+    }
+
+    .grid-item1 {
+        font-size: 22px;
+        padding: 10px;
+    }
+
+    .odsek-text {
+        font-weight: normal;
+        font-size: medium;
+    }
+
+    .mininadpis {
+        font-size: large;
+    }
+
+    .grid-container2 {
+        grid-template-columns: auto auto auto;
+    }
+    .grid-item2 {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 5px;
+        margin: 2px;
+        font-size: medium;
+        text-align: center;
+    }
+
+    .grid-container3 {
+        display: grid;
+        grid-template-columns: auto auto;
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .grid-container1 {
+        grid-template-columns: auto;
+        font-size: 20px;
+    }
+
+    .grid-item1 {
+        font-size: 15px;
+        padding: 5px;
+    }
+
+    .odsek-text {
+        font-weight: normal;
+        font-size: small;
+    }
+
+    .mininadpis {
+        font-size: medium;
+    }
+    .grid-container2 {
+        grid-template-columns: auto;
+    }
+
+    .grid-container3 {
+        display: grid;
+        grid-template-columns: auto;
+        padding: 10px;
+    }
+}

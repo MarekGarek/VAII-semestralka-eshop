@@ -1,0 +1,144 @@
+.grid-container4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+}
+
+.grid-item4 {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px;
+    text-align: center;
+}
+
+.button {
+    background-color: black;
+    color: #f9f9f9;
+    font-weight: bold;
+    width: 100%;
+}
+
+h3 {
+    color: #4CAF50;
+    align-content: center;
+    font-weight: bold;
+    padding: 30px;
+}
+
+.item1 { grid-area: img; }
+.item2 { grid-area: nadpis; }
+.item3 { grid-area: text; }
+.item4 { grid-area: datum; }
+.item5 { grid-area: button; }
+
+.grid-container5 {
+    display: grid;
+    grid-template-areas:
+    'img img img nadpis nadpis nadpis'
+    'img img img text text datum'
+    'img img img text text button';
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 3px solid black;
+    margin-bottom: 10px;
+}
+
+.grid-container5 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+}
+
+
+.obrazok {
+    width: 480px;
+    height: 290px;
+}
+
+.item2 {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.item3 {
+    font-size: medium;
+}
+
+p {
+    font-size: small;
+    margin-bottom: 3px;
+}
+
+.button2 {
+    background-color: #4CAF50;
+    color: #f9f9f9;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.navbar-bottom {
+    width: 100%;
+    margin: 10px;
+    padding: 30px;
+    text-align: center;
+    font-size: large;
+}
+
+a:hover {
+    color: #4CAF50;
+}
+
+a {
+    padding: 5px;
+    font-size: large;
+    color: black;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1200px) {
+    .grid-container4 {
+        grid-template-columns: auto auto auto;
+    }
+
+    .grid-container5 {
+        grid-template-areas:
+    'img img img img nadpis nadpis nadpis'
+    'img img img img datum datum datum'
+    'img img img img text text text'
+    'img img img img button button button';
+    }
+
+    p {
+        display: inline-block;
+    }
+
+    .obrazok {
+        width: 280px;
+        height: 210px;
+    }
+
+    .item2 {
+        font-size: x-large;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .grid-container4 {
+        grid-template-columns: auto;
+    }
+    .grid-container5 {
+        grid-template-areas:
+            'img img img img'
+            'img img img img'
+            'img img img img'
+            'img img img img'
+            'nadpis nadpis nadpis nadpis'
+            'datum datum datum datum'
+            'text text text text'
+            'button button button button';
+    }
+
+    .obrazok {
+        width: 100%;
+        height: 100%;
+    }
+}
