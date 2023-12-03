@@ -1,17 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const pool = require('../config/db.js');
+
 
 router.get('/blog', (req, res) => {
-  const blog_post = [{
-    title: 'Title',
-    text: 'This is the first blog post.',
-    read_time: 2,
-    date: '2020-01-01 00:00:00',
-    blog_type: 'Fitness recepty'
-  }]
+    pool.getConnection((err, connection) => {
+      if (err) throw err;
 
-  res.json(blog_post);
+      try {
+        const guery = `SELECT title,text,read_time,date,blog_type,url FROM blog`;
+        connection.query(guery, (err, result) => {
+          connection.release();
+          if (err) throw err;
+          res.json(result);
+        });
+      } catch (error) {
+        console.log(error);
+        res.end();
+      }
+    });
 });
 
+// add post to blog 21:00
 
 module.exports = router;
