@@ -1,17 +1,17 @@
 import logoImage from '../images/fazula.jpg';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Jumbotron() {
+    const navigate = useNavigate();
+
     return (
         <div className="p-3 text-center bg-white border-bottom md">
             <div className="container">
                 <div className="row">
                     <div className="col-md-4 d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">
-                        <a className="ms-md-2">
-                            <Link to="/">
-                                <img src={logoImage} height="50" alt="Gym Bean" />
-                                <em className="logo">Gym<em className="logo2">Bean</em></em>
-                            </Link>
+                        <a className="ms-md-2" onClick={() => navigate('/')}>
+                            <img src={logoImage} height="50" alt="Gym Bean" />
+                            <em className="logo">Gym<em className="logo2">Bean</em></em>
                         </a>
                     </div>
 
@@ -38,7 +38,7 @@ export default function Jumbotron() {
                             <div className="dropdown">
                                 <a
                                     className="text-reset me-3 dropdown-toggle hidden-arrow"
-                                    href="login"
+                                    onClick={() => navigate("login")}
                                     id="navbarDropdownMenuLink"
                                     role="button"
                                     data-mdb-toggle="dropdown"

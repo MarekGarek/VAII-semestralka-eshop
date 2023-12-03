@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
 import BlogMenu from '../components/BlogMenu';
 import BlogPost from '../components/BlogPost';
 import '../css/css1.css';
 import '../css/css2.css';
 import '../css/css3.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function Blog() {
+  const navigate = useNavigate();
 
   return (
     <>
       <BlogMenu />
-      <h3>Najnovšie informácie zo sveta fitness | Blog <button class="btn-add" >Pridať príspevok</button> </h3>
+      <h3>Najnovšie informácie zo sveta fitness | Blog <button class="btn-add" onClick={() => navigate("/blog/edit")} >Pridať príspevok</button> </h3>
       <BlogPost />
 
       <div class="navbar-bottom">

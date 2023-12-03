@@ -1,0 +1,43 @@
+.title { grid-area: title; }
+.text { grid-area: text; }
+.upload { grid-area: upload; }
+.readTime { grid-area: readTime; }
+.blogType { grid-area: blogType; }
+.submit-btn { grid-area: submit-btn; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+      'title title title title'
+      'text text text text'
+      'text text text text'
+      'upload upload upload upload'
+      'readTime blogType blogType submit-btn';
+      gap: 1em;
+      max-width: 700px;
+      margin: auto;
+  }
+
+  input, select, button {
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.75em;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+    resize: vertical;
+  }

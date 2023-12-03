@@ -22,5 +22,9 @@ router.get('/blog', (req, res) => {
 });
 
 // add post to blog 21:00 https://www.youtube.com/watch?v=t4ZAdwPZe9A
+router.post('/blog/edit', (req, res) => {
+    
+});
+
 
 module.exports = router;

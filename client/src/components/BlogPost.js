@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from'react-router-dom';
 
 function Post({title,text,read_time,date,blog_type,url}) {
+    const navigate = useNavigate();
+
     return(
         <div className="grid-container5">
             <div className="item1">
@@ -15,7 +18,7 @@ function Post({title,text,read_time,date,blog_type,url}) {
             </div>
             <div className="item5">
                 <button className="button2">ČÍTAJ VIAC</button>
-                <button className="edit">EDIT</button>
+                <button className="edit" onClick={() => navigate("/blog/edit")}>EDIT</button>
                 <button className="delete">DELETE</button>
             </div>
         </div>
@@ -29,7 +32,7 @@ export default function BlogPost() {
       
         const [items, setItems] = useState([]);
         const fetchItems = async () => {
-          const data = await fetch('/blog'); // získává data z URL /blog
+          const data = await fetch('/blog');
           const items = await data.json();
           setItems(items);
         };

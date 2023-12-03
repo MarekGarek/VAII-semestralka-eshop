@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function DropDownMenu() {
+    const navigate = useNavigate();
+
     return (
         <div className="grid-container2">
             <div className="grid-item2">
@@ -48,7 +51,7 @@ export default function DropDownMenu() {
             </div>
             <div className="grid-item2">
                 <div className="dropdown2">
-                    <button onClick={() => window.location.href='blog'} className="dropbtn">BLOG</button>
+                    <button onClick={() => navigate('blog')} className="dropbtn">BLOG</button>
                 </div>
             </div>
         </div>

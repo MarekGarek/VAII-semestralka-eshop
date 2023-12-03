@@ -90,6 +90,7 @@ p {
     padding: 10px;
     float: right;
     margin-right: 20px;
+    width: 15%;
 }
 
 .edit, .delete {
@@ -99,6 +100,7 @@ p {
     padding: 10px;
     float: right;
     margin-right: 20px;
+    width: 15%;
 }
 
 .edit {
@@ -208,6 +210,6 @@ a {
     .button2, .edit, .delete {
         margin: 2 2 2 2;
         width: 26%;
-        float: none !important;
+        float: none;
     }
 }

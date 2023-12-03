@@ -6,7 +6,7 @@ export default function LoginComponent() {
                     <label htmlFor="fname">Meno:</label><br />
                     <input type="text" id="fname" name="fname" value="" /><br />
                     <label htmlFor="lname">Priezvisko:</label><br />
-                    <input type="text" id="lname" name="lname" value="" /><br />
+                    <input type="date" id="lname" name="lname" value="" /><br />
                     <label htmlFor="dob">Dátum narodenia:</label><br />
                     <input type="text" id="dob" name="dob" value="" /><br />
                     <label htmlFor="gender">Pohlavie:</label><br />
