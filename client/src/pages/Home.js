@@ -1,5 +1,4 @@
 import Carousel from '../components/Carousel';
-import Footer from '../components/Footer';
 import '../css/css1.css';
 import '../css/css2.css';
 
