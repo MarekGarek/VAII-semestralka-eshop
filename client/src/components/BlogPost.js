@@ -13,7 +13,11 @@ function Post({title,text,read_time,date,blog_type,url}) {
                 <p>{date}</p>
                 <p>Čas čítania {read_time} min.</p>
             </div>
-            <div className="item5"><button className="button2">ČÍTAJ VIAC</button></div>
+            <div className="item5">
+                <button className="button2">ČÍTAJ VIAC</button>
+                <button className="edit">EDIT</button>
+                <button className="delete">DELETE</button>
+            </div>
         </div>
     );
 }

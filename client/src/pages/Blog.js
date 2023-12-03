@@ -10,7 +10,7 @@ export default function Blog() {
   return (
     <>
       <BlogMenu />
-      <h3>Najnovšie informácie zo sveta fitness | GymBean Blog</h3>
+      <h3>Najnovšie informácie zo sveta fitness | Blog <button class="btn-add" >Pridať príspevok</button> </h3>
       <BlogPost />
 
       <div class="navbar-bottom">
