@@ -18,13 +18,13 @@ function Post({title,text,read_time,date,blog_type,url}) {
             </div>
             <div className="item5">
                 <button className="button2">ČÍTAJ VIAC</button>
-                <button className="edit" onClick={() => navigate("/blog/edit")}>EDIT</button>
+                <button className="edit" onClick={() => navigate("/blog/edit")}>EDIT</button> 
                 <button className="delete">DELETE</button>
             </div>
         </div>
     );
 }
-
+///blog/item:{item}
 export default function BlogPost() {
         useEffect(() => {
           fetchItems();
