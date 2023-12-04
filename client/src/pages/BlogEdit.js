@@ -1,12 +1,39 @@
 import '../css/blogEdit.css';
 import { useState } from 'react';
+import {useLocation} from'react-router-dom';
+import axios from 'axios';
 
 export default function BlogEdit() {
-    let [title, setTitle] = useState('');
-    let [text, setText] = useState('');
-    let [url, setUrl] = useState('');
-    let [number, setNumber] = useState('');
-    let [blogType, setBlogType] = useState('');
+    //získanie parametra z URL
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const encoded = searchParams.get('id');
+    //dekodovanie parametra 
+    const encodedJsonItem = decodeURIComponent(encoded);
+    const item = JSON.parse(encodedJsonItem);
+    
+    let dbTitle, dbText, dbUrl, dbNumber, dbBlogType;
+
+    if (item !== null) {
+        dbTitle = item.title;
+        dbText = item.text;
+        dbUrl = item.url;
+        dbNumber = item.read_time;
+        dbBlogType = item.blog_type;
+    } else {
+        dbTitle = '';
+        dbText = '';
+        dbUrl = '';
+        dbNumber = '';
+        dbBlogType = '';
+    }
+
+    let [title, setTitle] = useState(dbTitle);
+    let [text, setText] = useState(dbText);
+    let [url, setUrl] = useState(dbUrl);
+    let [number, setNumber] = useState(dbNumber);
+    let [blogType, setBlogType] = useState("");
+    let [formMessage, setFormMessage] = useState('');
 
     const cleanInputs = () => {
         title = title.replace(/<script>|<\/script>/gi, '');
@@ -18,16 +45,33 @@ export default function BlogEdit() {
         url = url.replace(/<\?php/g, '');
     };
 
+    const postData = async () => {
+        const data = {
+            title: title,
+            text: text,
+            url: url,
+            read_time: number,
+            blog_type: blogType
+        }
+
+        try {
+            const response = await axios.post('http://localhost:4000/data', data);
+            setFormMessage(<p className="formCheck"> {response.data} </p>);
+            window.location.href = '/blog';
+          } catch (error) {
+            console.error(error);
+            setFormMessage(<p className="formError">Chyba pri odosielaní dát</p>);
+          }
+    };
+
     const handleSubmit = (e) => {
         cleanInputs();
         e.preventDefault();
-        console.log(title);
-        console.log(text);
-        console.log(url);
-        console.log(number);
-        console.log(blogType);
+        setFormMessage('');
+        postData();
     };
 
+    const options = [dbBlogType, "Fitness recepty", "Výživové doplnky", "Strava a zdravý životný štýl", "Cviky a tréningy"].filter((value, index, self) => self.indexOf(value) === index);
 
     return (
         <div>
@@ -61,11 +105,10 @@ export default function BlogEdit() {
                 <br></br>
                 
                 <div className="blogType">
-                    <select onChange={(e) => setBlogType(e.target.value)}>
-                        <option value="Fitness recepty">Fitness recepty</option>
-                        <option value="Výživové doplnky">Výživové doplnky</option>
-                        <option value="Strava a zdravý životný štýl">Strava a zdravý životný štýl</option>
-                        <option value="Cviky a tréningy">Cviky a tréningy</option>
+                    <select value={blogType} onChange={(e) => setBlogType(e.target.value)}>
+                        {options.map((option, index) => (
+                            <option key={index} value={option}>{option}</option>
+                        ))}
                     </select>
                 </div>
                 <br></br>
@@ -74,6 +117,8 @@ export default function BlogEdit() {
                     <button type="submit">Odoslať</button>
                 </div>
             </form>
+
+        {formMessage}
 
         </div>
     )

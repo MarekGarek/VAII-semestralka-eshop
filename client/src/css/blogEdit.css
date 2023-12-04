@@ -5,6 +5,21 @@
 .blogType { grid-area: blogType; }
 .submit-btn { grid-area: submit-btn; }
 
+
+.formCheck,.formError {
+  text-align: center;
+  font-size: larger;
+  margin-bottom: 20px;
+}
+
+.formCheck {
+  color:#45a049;
+}
+
+.formError {
+  color:red;
+}
+
 .grid-container {
     display: grid;
     grid-template-areas:

@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from'react-router-dom';
 
-function Post({title,text,read_time,date,blog_type,url}) {
+function Post({item}) {
     const navigate = useNavigate();
+    let title=item.title;
+    let text=item.text
+    let read_time=item.read_time
+    let date=item.date
+    let blog_type=item.blog_type
+    let url=item.url
+
+    // kodovanie objektu aby sa dal poslat ako parameter cez URL
+    let jsonItem = JSON.stringify(item);
+    const encodedJsonItem = encodeURIComponent(jsonItem);
 
     return(
         <div className="grid-container5">
@@ -18,34 +28,31 @@ function Post({title,text,read_time,date,blog_type,url}) {
             </div>
             <div className="item5">
                 <button className="button2">ČÍTAJ VIAC</button>
-                <button className="edit" onClick={() => navigate("/blog/edit")}>EDIT</button> 
+                <button className="edit" onClick={() => navigate(`/blog/edit?id=${encodedJsonItem}`)}>EDIT</button> 
                 <button className="delete">DELETE</button>
             </div>
         </div>
     );
 }
-///blog/item:{item}
+
+//ziskanie dat z databazi
 export default function BlogPost() {
-        useEffect(() => {
-          fetchItems();
-        }, []);
-      
-        const [items, setItems] = useState([]);
-        const fetchItems = async () => {
-          const data = await fetch('/blog');
-          const items = await data.json();
-          setItems(items);
-        };
+    useEffect(() => {
+        fetchItems();
+    }, []);
+    
+    const [items, setItems] = useState([]);
+    const fetchItems = async () => {
+        const data = await fetch('/blog');
+        const items = await data.json();
+        setItems(items);
+    };
+        
 
     return(
         items.map((item, index) => (
             <Post
-              title={item.title}
-              text={item.text}
-              read_time={item.read_time}
-              date={item.date}
-              blog_type={item.blog_type}
-              url={item.url}
+              item={item}
             />
           ))
      );
