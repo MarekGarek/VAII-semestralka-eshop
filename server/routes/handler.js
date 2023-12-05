@@ -1,4 +1,3 @@
-import DOMPurify from 'dompurify';
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/db.js');
@@ -31,11 +30,6 @@ router.post('/post/data', (req, res) => {
     if (!validate(title, text, url, read_time, blog_type)) {
         res.end();
     }
-
-    //odstranenie script tagov a pod.
-    title = DOMPurify.sanitize(title);
-    text = DOMPurify.sanitize(text);
-    url = DOMPurify.sanitize(url);
 
     pool.getConnection((err, connection) => {
       try {
