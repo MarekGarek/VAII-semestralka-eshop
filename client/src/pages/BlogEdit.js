@@ -2,6 +2,7 @@ import '../css/blogEdit.css';
 import { useState } from 'react';
 import {useLocation} from'react-router-dom';
 import axios from 'axios';
+import DOMPurify from 'dompurify';
 
 export default function BlogEdit() {
     //získanie parametra z URL
@@ -35,27 +36,29 @@ export default function BlogEdit() {
     let [blogType, setBlogType] = useState("");
     let [formMessage, setFormMessage] = useState('');
 
-    const cleanInputs = () => {
-        title = title.replace(/<script>|<\/script>/gi, '');
-        text = text.replace(/<script>|<\/script>/gi, '');
-        url = url.replace(/<script>|<\/script>/gi, '');
-
-        title = title.replace(/<\?php/g, '');
-        text = text.replace(/<\?php/g, '');
-        url = url.replace(/<\?php/g, '');
-    };
+    let data = {
+        title: title,
+        text: text,
+        url: url,
+        read_time: number,
+        blog_type: blogType
+    }
 
     const postData = async () => {
-        const data = {
-            title: title,
-            text: text,
-            url: url,
-            read_time: number,
-            blog_type: blogType
-        }
-
         try {
-            const response = await axios.post('http://localhost:4000/data', data);
+            const response = await axios.post('http://localhost:4000/post/data', data);
+            setFormMessage(<p className="formCheck"> {response.data} </p>);
+            window.location.href = '/blog';
+          } catch (error) {
+            console.error(error);
+            setFormMessage(<p className="formError">Chyba pri odosielaní dát</p>);
+          }
+    };
+
+    const putData = async () => {
+        data.id_blog = item.id_blog;
+        try {
+            const response = await axios.put('http://localhost:4000/put/data', data);
             setFormMessage(<p className="formCheck"> {response.data} </p>);
             window.location.href = '/blog';
           } catch (error) {
@@ -65,10 +68,14 @@ export default function BlogEdit() {
     };
 
     const handleSubmit = (e) => {
-        cleanInputs();
         e.preventDefault();
         setFormMessage('');
-        postData();
+        if (item === null) {
+            postData();
+        } else {
+            putData();
+        }
+        
     };
 
     const options = [dbBlogType, "Fitness recepty", "Výživové doplnky", "Strava a zdravý životný štýl", "Cviky a tréningy"].filter((value, index, self) => self.indexOf(value) === index);
@@ -80,21 +87,21 @@ export default function BlogEdit() {
                 <div className="title">
                     <label for="text">Názov</label>
                     <input type="text" placeholder="Názov" required minLength={5} maxLength={150} 
-                        value={title} onChange={(e) => setTitle(e.target.value)}/>
+                        value={title} onChange={(e) => setTitle(DOMPurify.sanitize(e.target.value))}/>
                 </div>
                 <br></br>
 
                 <div className="text">
                     <label for="text">Text:</label>
                     <textarea id="text" name="text" rows="4" cols="50" placeholder="Zadejte text..." required maxLength={5000}
-                        value={text} onChange={(e) => setText(e.target.value)} ></textarea>
+                        value={text} onChange={(e) => setText(DOMPurify.sanitize(e.target.value))} ></textarea>
                 </div>
                 <br></br>
 
                 <div className="upload">
                     <label for="text">Zadaj url obrázka:</label>
                     <input type="url" placeholder="https://" required maxLength={200}
-                        value={url} onChange={(e) => setUrl(e.target.value)}></input>
+                        value={url} onChange={(e) => setUrl(DOMPurify.sanitize(e.target.value))}></input>
                 </div>
                 <br></br>  
                 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from'react-router-dom';
 
@@ -9,10 +10,20 @@ function Post({item}) {
     let date=item.date
     let blog_type=item.blog_type
     let url=item.url
+    let id=item.id_blog
 
     // kodovanie objektu aby sa dal poslat ako parameter cez URL
     let jsonItem = JSON.stringify(item);
     const encodedJsonItem = encodeURIComponent(jsonItem);
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`/blog/delete/${id}`);
+            window.location.reload();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return(
         <div className="grid-container5">
@@ -29,7 +40,7 @@ function Post({item}) {
             <div className="item5">
                 <button className="button2">ČÍTAJ VIAC</button>
                 <button className="edit" onClick={() => navigate(`/blog/edit?id=${encodedJsonItem}`)}>EDIT</button> 
-                <button className="delete">DELETE</button>
+                <button className="delete" onClick={() => handleDelete(id)}>DELETE</button>
             </div>
         </div>
     );
