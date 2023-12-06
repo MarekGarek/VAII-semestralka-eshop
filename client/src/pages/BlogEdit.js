@@ -33,7 +33,7 @@ export default function BlogEdit() {
     let [text, setText] = useState(dbText);
     let [url, setUrl] = useState(dbUrl);
     let [number, setNumber] = useState(dbNumber);
-    let [blogType, setBlogType] = useState("");
+    let [blogType, setBlogType] = useState(dbBlogType);
     let [formMessage, setFormMessage] = useState('');
 
     let data = {

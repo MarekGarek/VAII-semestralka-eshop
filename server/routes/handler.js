@@ -53,7 +53,9 @@ router.put('/put/data', (req, res) => {
   const { title, text, url, read_time, blog_type, id_blog } = req.body;
   res.send('Príspevok úspešne odoslaný.');
   
-  //TODO formularovy check na strane servera
+  if (!validate(title, text, url, read_time, blog_type)) {
+    res.end();
+  }
 
   pool.getConnection((err, connection) => {
     try {
