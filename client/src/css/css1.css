@@ -1,3 +1,7 @@
+.newsCheckBox {
+    width: 50;
+}
+
 .grid-container1 {
     display: grid;
     grid-template-columns: auto auto auto auto;

@@ -6,11 +6,9 @@ export default function LoginComponent() {
                     <label htmlFor="fname">Meno:</label><br />
                     <input type="text" id="fname" name="fname" value="" /><br />
                     <label htmlFor="lname">Priezvisko:</label><br />
-                    <input type="date" id="lname" name="lname" value="" /><br />
+                    <input type="text" id="lname" name="lname" value="" /><br />
                     <label htmlFor="dob">Dátum narodenia:</label><br />
-                    <input type="text" id="dob" name="dob" value="" /><br />
-                    <label htmlFor="gender">Pohlavie:</label><br />
-                    <input type="text" id="gender" name="gender" value="" />
+                    <input type="date" id="dob" name="dob" value="" /><br />
                 </form>
             </div>
             <div className="item2-r">
@@ -25,12 +23,14 @@ export default function LoginComponent() {
             </div>
             <div className="item3-r">
                 <form action="/action_page.php">
-                    <input type="checkbox" id="subscribe" name="subscribe" value="Bike" />
-                    <label htmlFor="subscribe"> Prihlásiť sa na odber noviniek</label><br />
+                    
+                    <label htmlFor="subscribe"> 
+                        Prihlásiť sa na odber noviniek 
+                        <input type="checkbox" className="newsCheckBox" /> 
+                    </label> <br/>
                 </form>
                 <button type="button" onClick={() => alert('Úspešne ste sa zaregistrovali!')}>REGISTRÁCIA</button>
             </div>
-            <div className="item4-r"></div>
             <div className="item5-r">Osobné údaje</div>
             <div className="item6-r">Prihlasovacie údaje</div>
         </div>

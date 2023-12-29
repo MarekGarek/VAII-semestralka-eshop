@@ -1,0 +1,68 @@
+.gridHeader-item1 {grid-area: logo;}
+.gridHeader-item2 {grid-area: search;}
+.gridHeader-item3 {grid-area: buttons;}
+
+
+.gridHeader {
+    display: grid;
+    grid-template-areas: 'logo search buttons';
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.gridHeader-item3 {
+    margin-left: auto;
+    padding-right: 150px;
+}
+
+.gridHeader-item1 {
+    margin-right: auto;
+    padding-left: 100px;
+}
+
+.header-btn {
+    width: 40px !important;
+    height: 40px !important;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+}
+  
+.dropdown2:hover .dropdown-content {
+  display: block;
+}
+  
+@media only screen and (max-width: 1200px) {
+    .gridHeader {
+        grid-template-areas: 'logo buttons'
+                             'search search';
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .gridHeader {
+        grid-template-areas: 'logo'
+                             'search '
+                             'buttons';
+        display: flex;
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+    }
+    .gridHeader-item1, .gridHeader-item3 {
+        margin: 0;
+        padding: 0;
+    }
+}

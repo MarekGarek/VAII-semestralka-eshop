@@ -29,6 +29,7 @@ router.post('/post/data', (req, res) => {
     
     if (!validate(title, text, url, read_time, blog_type)) {
         res.end();
+        return false;
     }
 
     pool.getConnection((err, connection) => {
@@ -55,6 +56,7 @@ router.put('/put/data', (req, res) => {
   
   if (!validate(title, text, url, read_time, blog_type)) {
     res.end();
+    return false;
   }
 
   pool.getConnection((err, connection) => {
