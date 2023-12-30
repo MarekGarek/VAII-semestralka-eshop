@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Home from '../pages/Home';
 import Blog from '../pages/Blog';
 import Login from '../pages/Login';
+import Register from '../pages/Register';
 import BlogEdit from '../pages/BlogEdit';
 import Header from '../components/Header';
 
@@ -30,6 +31,7 @@ export default function Router() {
                     <Route path="blog" element={<Blog />}/>
                     <Route path="blog/edit" element={<BlogEdit />} />
                     <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
                 </Route>
                 </Routes>
             </BrowserRouter>

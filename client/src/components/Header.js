@@ -29,7 +29,7 @@ export default function Header() {
             <button className="dropbtn header-btn"><i className="bi bi-person-circle"></i></button>
             <div className="dropdown-content">
               <a role="button" onClick={() => navigate("login")}>Prihlásiť</a>
-              <a>Registrovať</a>
+              <a role="button" onClick={() => navigate("register")}>Registrovať</a>
             </div>
           </div>
         </div>
