@@ -1,11 +1,53 @@
 import Carousel from '../components/Carousel';
-import Cards from '../components/Cards';
 import '../css/css1.css';
 import '../css/css2.css';
-
-
+import Card from '../components/Card';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 export default function Home() {
+    
+    let [img, setImg] = useState();
+    let [img1, setImg1] = useState();
+    let [name, setName] = useState();
+    let nazov = "Test nazov obrazka";
+
+    const postImg = async () => {
+        try {
+            const formData = new FormData();
+            formData.append('blogImg', img);
+            formData.append('name', nazov);
+            const response = await axios.post('http://localhost:4000/post/img', formData, {
+                headers: {'Content-Type': 'multipart/form-data'}
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (img !== null) {
+            postImg();
+        }
+    };
+
+
+    useEffect(() => {
+        fetchItems();
+    }, []);
+    
+    const [image, setItems] = useState([]);
+    const fetchItems = async () => {
+        const data = await fetch('/get/img');
+        const image = await data.json();
+        setItems(image);
+        setImg1(image[0].img);
+        setName(image[0].name);
+    };
+
+    
+
     return (
         <>
 
@@ -18,7 +60,18 @@ export default function Home() {
         </div>
         <p class="mininadpis">Objavte overené produkty podľa vášho cieľa. Chcete: </p>
         
-        <Cards/>
+        <h3>{name}</h3>
+        <img alt=":)" src={`data:image/png;base64,${img1}`} />
+        
+        <br/><br/><br/><br/><br/>
+
+        <form encType="multipart/form-data">
+            <input type="file" name="blogImg" onChange={(e) => setImg(e.target.files[0])}></input>
+            <button type="button" onClick={handleSubmit}>Upload</button>
+        </form>
+
+
+        <br/><br/><br/><br/><br/>
         </>
     )
 }
