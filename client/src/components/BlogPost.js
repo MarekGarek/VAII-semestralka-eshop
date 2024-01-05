@@ -9,7 +9,7 @@ function Post({item}) {
     let read_time=item.read_time
     let date=item.date
     let blog_type=item.blog_type
-    let url=item.url
+    let img=item.img
     let id=item.id_blog
 
     // kodovanie objektu aby sa dal poslat ako parameter cez URL
@@ -28,7 +28,7 @@ function Post({item}) {
     return(
         <div className="grid-container5">
             <div className="item1">
-                <img className="obrazok" src={url} alt="obrazok" />
+                <img className="obrazok" src={`data:image/png;base64,${item.img}`} alt="obrazok" />
             </div>
             <div className="item2">{title}</div>
             <div className="item3">{text}</div>
@@ -54,7 +54,7 @@ export default function BlogPost() {
     
     const [items, setItems] = useState([]);
     const fetchItems = async () => {
-        const data = await fetch('/blog');
+        const data = await fetch('/get/blog');
         const items = await data.json();
         setItems(items);
     };

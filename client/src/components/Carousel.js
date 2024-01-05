@@ -1,5 +1,5 @@
 import ca1 from '../images/ca1.jpg';
-import ca2 from '../images/ca2.jpg';
+import ca2 from '../images/ca2.jpeg';
 import ca3 from '../images/ca3.jpg';
 
 export default function Carousel() {

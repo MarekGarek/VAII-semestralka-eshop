@@ -1,5 +1,5 @@
 import '../css/blogEdit.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {useLocation} from'react-router-dom';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
@@ -13,41 +13,48 @@ export default function BlogEdit() {
     const encodedJsonItem = decodeURIComponent(encoded);
     const item = JSON.parse(encodedJsonItem);
     
-    let dbTitle, dbText, dbUrl, dbNumber, dbBlogType;
+    let dbTitle, dbText, dbImg, dbNumber, dbBlogType;
 
     if (item !== null) {
         dbTitle = item.title;
         dbText = item.text;
-        dbUrl = item.url;
+        dbImg = item.img;
         dbNumber = item.read_time;
         dbBlogType = item.blog_type;
     } else {
         dbTitle = '';
         dbText = '';
-        dbUrl = '';
+        dbImg = '';
         dbNumber = '';
         dbBlogType = '';
     }
 
     let [title, setTitle] = useState(dbTitle);
     let [text, setText] = useState(dbText);
-    let [url, setUrl] = useState(dbUrl);
     let [number, setNumber] = useState(dbNumber);
     let [blogType, setBlogType] = useState(dbBlogType);
     let [formMessage, setFormMessage] = useState('');
+    let [img, setImg] = useState(dbImg);
+    let [image, setImage] = useState(null);
 
     let data = {
         title: title,
         text: text,
-        url: url,
         read_time: number,
         blog_type: blogType
     }
 
     const postData = async () => {
         try {
-            const response = await axios.post('http://localhost:4000/post/data', data);
-            setFormMessage(<p className="formCheck"> {response.data} </p>);
+            const formData = new FormData();
+            formData.append('blogImg', img);
+            for (let key in data) {
+                formData.append(key, data[key]);
+            }
+            const response = await axios.post('http://localhost:4000/post/data', formData, {
+                headers: {'Content-Type': 'multipart/form-data'}
+            });
+            setFormMessage(<p className="formCheck"> {response.formData} </p>);
             window.location.href = '/blog';
           } catch (error) {
             console.error(error);
@@ -56,14 +63,19 @@ export default function BlogEdit() {
     };
 
     const putData = async () => {
-        data.id_blog = item.id_blog;
+        const formData = new FormData();
+        formData.append('blogImg', img);
+        for (let key in data) {
+            formData.append(key, data[key]);
+        }
+        formData.append('id_blog', item.id_blog);
         try {
-            const response = await axios.put('http://localhost:4000/put/data', data);
-            setFormMessage(<p className="formCheck"> {response.data} </p>);
+            const response = await axios.put('http://localhost:4000/put/data', formData);
+            setFormMessage(<p className="formCheck"> {response.formData} </p>);
             window.location.href = '/blog';
           } catch (error) {
             console.error(error);
-            setFormMessage(<p className="formError">Chyba pri odosielaní dát</p>);
+            setFormMessage(<p className="formError">Chyba pri odosielaní dát PUT</p>);
           }
     };
 
@@ -77,6 +89,26 @@ export default function BlogEdit() {
         }
         
     };
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onloadend = () => {
+          setImage(reader.result);
+        };
+    
+        if (file) {
+          reader.readAsDataURL(file);
+        } else {
+          setImage(null);
+        }
+      };
+
+    const handleChange = (event) => {
+        setImg(event.target.files[0]);
+        handleImageUpload(event);
+      };
 
     const options = [dbBlogType, "Fitness recepty", "Výživové doplnky", "Strava a zdravý životný štýl", "Cviky a tréningy"].filter((value, index, self) => self.indexOf(value) === index);
 
@@ -99,9 +131,11 @@ export default function BlogEdit() {
                 <br></br>
 
                 <div className="upload">
-                    <label for="text">Zadaj url obrázka:</label>
-                    <input type="url" placeholder="https://" required maxLength={200}
-                        value={url} onChange={(e) => setUrl(DOMPurify.sanitize(e.target.value))}></input>
+                    <form encType="multipart/form-data">
+                        <label for="text">Nahraj obrázok:</label>
+                        <input type="file" name="blogImg" onChange={handleChange}></input>
+                        {image ? <img className="editPicture" src={image}/> : <img className="editPicture" src={`data:image/png;base64,${img}`}/>}
+                    </form>
                 </div>
                 <br></br>  
                 

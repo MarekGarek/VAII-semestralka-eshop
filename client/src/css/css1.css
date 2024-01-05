@@ -2,6 +2,14 @@
     width: 50;
 }
 
+.green {
+    color: #4CAF50;
+}
+
+.red {
+    color: brown;
+}
+
 .grid-container1 {
     display: grid;
     grid-template-columns: auto auto auto auto;

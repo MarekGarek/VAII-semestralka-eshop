@@ -56,3 +56,8 @@
     box-sizing: border-box;
     resize: vertical;
   }
+
+  .editPicture {
+    width: 210px;
+    height: 140px;
+  }
