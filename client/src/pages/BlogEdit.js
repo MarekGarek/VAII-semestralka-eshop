@@ -29,12 +29,12 @@ export default function BlogEdit() {
         dbBlogType = '';
     }
 
-    let [title, setTitle] = useState(dbTitle);
-    let [text, setText] = useState(dbText);
-    let [number, setNumber] = useState(dbNumber);
-    let [blogType, setBlogType] = useState(dbBlogType);
+    let [title, setTitle] = useState(() => { return dbTitle});
+    let [text, setText] = useState(() => { return dbText});
+    let [number, setNumber] = useState(() => { return dbNumber});
+    let [blogType, setBlogType] = useState(() => { return dbBlogType});
     let [formMessage, setFormMessage] = useState('');
-    let [img, setImg] = useState(dbImg);
+    let [img, setImg] = useState(() => { return dbImg});
     let [image, setImage] = useState(null);
 
     let data = {

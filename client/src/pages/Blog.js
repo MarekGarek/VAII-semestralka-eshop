@@ -11,11 +11,11 @@ export default function Blog() {
   return (
     <>
       <BlogMenu />
-      <h3>Najnovšie informácie zo sveta fitness | Blog <button class="btn-add" onClick={() => navigate("/blog/edit")} >Pridať príspevok</button> </h3>
+      <h3>Najnovšie informácie zo sveta fitness | Blog <button className="btn-add" onClick={() => navigate("/blog/edit")} >Pridať príspevok</button> </h3>
       <BlogPost />
 
-      <div class="navbar-bottom">
-        <a href="#" class="active">1</a>
+      <div className="navbar-bottom">
+        <a href="#" className="active">1</a>
         <a href="#">2</a>
         <a>3</a>
         <a>...</a>
