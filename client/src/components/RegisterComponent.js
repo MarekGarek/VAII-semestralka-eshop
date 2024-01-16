@@ -17,20 +17,13 @@ export default function RegisterComponent() {
 
     const [login, setLogin] = useState('');
     const [validLogin, setValidLogin] = useState(false);
-    const [loginFocus, setLoginFocus] = useState(false);
     
     const [pwd, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
-    const [pwdFocus, setPwdFocus] = useState(false);
     
     const [pwd2, setPwd2] = useState('');
     const [validPwd2, setValidPwd2] = useState(false);
-    const [pwd2Focus, setPwd2Focus] = useState(false);
 
-    //nastavi focus na login
-    useEffect(() => {
-        //loginFocus.current.focus();
-    },[])
 
     //skontrolujem ci login obsahuje vsetky znaky ktore ma podla regexu
     useEffect(() => {
@@ -71,8 +64,8 @@ export default function RegisterComponent() {
           }
     }
 
-    // spraviť if na cely registerComponent po uspesnej registracii ta to preklikne na login page alebo rovno prihlasi?
-
+    //TODO: dorobiť stránku "úspešne si sa zaregistroval....."
+    
     return (
         
         <div>
@@ -111,23 +104,17 @@ export default function RegisterComponent() {
                            autoComplete="off"
                            required
                            onChange={(e) => setLogin(e.target.value)}
-                           onFocus={() => setLoginFocus(true)}
-                           onBlur={() => setLoginFocus(false)}
                     />       
                     <label>Heslo {!validPwd ? <i className="bi bi-x-lg red"></i> : <i className="bi bi-check2 green"></i>}</label>
                     <input type="password" 
                            required
                            onChange={(e) => setPwd(e.target.value)}
-                           onFocus={() => setPwdFocus(true)}
-                           onBlur={() => setPwdFocus(false)}
                     />
 
                     <label>Potvrdiť heslo {!validPwd || !validPwd2 ? <i className="bi bi-x-lg red"></i> : <i className="bi bi-check2 green"></i>}</label>
                     <input type="password"
                            required
                            onChange={(e) => setPwd2(e.target.value)}
-                           onFocus={() => setPwd2Focus(true)}
-                           onBlur={() => setPwd2Focus(false)}
                     />
 
                     {!validPwd || !validPwd2 || !validLogin ? <p><i className="bi bi-x-lg red"></i>Povinné polia</p> : <p></p>}

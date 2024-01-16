@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logoImage from '../images/fazula.jpg';
+import logoImage from '../images/fazula.png';
 import '../css/header.css';
 
 export default function Header() {
@@ -11,7 +11,7 @@ export default function Header() {
 
       <div className='gridHeader-item1'>
         <a onClick={() => navigate('/')}>
-          <img src={logoImage} height="50" alt="Gym Bean" />
+          <img src={logoImage} height="50" alt="Gym Bean" style={{ backgroundColor: 'transparent' }} />
           <em className="logo">Gym<em className="logo2">Bean</em></em>
         </a>
       </div>

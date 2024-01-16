@@ -1,144 +1,39 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../config/db.js');
 const cors = require('cors');
 const multer = require('multer');
+const homeController = require('../controllers/homeController');
+const blogController = require('../controllers/blogController');
+const registerController = require('../controllers/registerController');
+const authController = require('../controllers/authController');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200,
+  credentials: true, //cookies
+};
 
-router.get('/get/blog', (req, res) => {
-  pool.getConnection((err, connection) => {
-    if (err) throw err;
+router.use(cors(corsOptions));
 
-    try {
-      const guery = `SELECT title,text,read_time,date,blog_type,img,id_blog FROM blog`;
-      connection.query(guery, (err, result) => {
-        connection.release();
-        if (err) throw err;
-        res.json(result);
-      });
-    } catch (error) {
-      console.log(error);
-      res.end();
-    }
-  });
-});
+// home page
+router.get('/get/products', homeController.getProducts);
 
-
+// blog page + edit page
+router.get('/get/blog', blogController.getBlogs);
 router.post('/post/data',
-upload.fields([{ name: 'blogImg', maxCount: 1 }, { name: 'title' }, { name: 'text' }, { name: 'number' }, { name: 'blog_type' }]),(req, res) => {
-  const image = req.files.blogImg[0].buffer.toString('base64');
-  const { title, text, read_time, blog_type } = req.body;
-  res.send('Príspevok úspešne odoslaný.');
-
-  pool.getConnection((err, connection) => {
-    try {
-      if (err) throw err;
-      const login = "admin";
-      const query = `INSERT INTO blog (title, text, read_time, blog_type, img, login, date) VALUES(?,?,?,?,?,?, NOW());`;
-      connection.query(query, [title, text, read_time, blog_type,image,login], (err, result) => {
-      connection.release();
-      if (err) throw err;
-      console.log('Pridane');
-    });
-      res.end();
-    } catch (err) {
-      console.log(err);
-    }
-  })
-
-});
-
-
+upload.fields([{ name: 'blogImg', maxCount: 1 }, { name: 'title' }, { name: 'text' }, { name: 'number' }, { name: 'blog_type' }]),
+blogController.addBlog);
 router.put('/put/data',
-upload.fields([{ name: 'blogImg' }, { name: 'title' }, { name: 'text' }, { name: 'number' }, { name: 'blog_type' }]),(req, res) => {
-  const image = req.files.blogImg[0].buffer.toString('base64');
-  const { title, text, read_time, blog_type, id_blog } = req.body;
-  res.send('Príspevok úspešne odoslaný.');
+upload.fields([{ name: 'blogImg' }, { name: 'title' }, { name: 'text' }, { name: 'number' }, { name: 'blog_type' }]),
+blogController.editBlog);
+router.delete('/blog/delete/:id', blogController.deleteBlog);
 
-  pool.getConnection((err, connection) => {
-    try {
-      if (err) throw err;
-      const login = "admin";
-      const query = `UPDATE blog SET title=?, text=?, read_time=?, blog_type=?, img=?, login=?, date=NOW() where id_blog=?;`;
-      connection.query(query, [title, text, read_time, blog_type,image,login,id_blog], (err, result) => {
-      connection.release();
-      if (err) throw err;
-      console.log('Pridane');
-    });
-      res.end();
-    } catch (err) {
-      console.log(err);
-    }
-  })
+// register page
+router.post('/post/register', registerController.sendRegisterForm);
 
-});
-
-router.delete('/blog/delete/:id', (req, res) => {
-const { id } = req.params;
-console.log(id);
-query = `DELETE FROM blog WHERE id_blog =?`;
-
-pool.getConnection((err, connection) => {
-  try {
-    if (err) throw err;
-    connection.query(query, [id], (err, result) => {
-      connection.release();
-      if (err) throw err;
-      console.log('Zmazane');
-    });
-    res.end();
-  } catch (err) {
-    console.log(err);
-  }
-})
-
-});
-
-
-router.get('/get/products', (req, res) => {
-  pool.getConnection((err, connection) => {
-    if (err) throw err;
-
-    try {
-      const guery = `SELECT img,name,pieces,price FROM products;`;
-      connection.query(guery, (err, result) => {
-        connection.release();
-        if (err) throw err;
-        res.json(result);
-      });
-    } catch (error) {
-      console.log(error);
-      res.end();
-    }
-  });
-});
-
-
-router.post('/post/register', (req, res) => {
-  const { name, surName, email, login, password } = req.body;
-  pool.getConnection((err, connection) => {
-  const query = `INSERT INTO users (name, surName, email, login, password, isAdmin) VALUES(?,?,?,?,?,'N');`;
-
-  connection.query(query, [name, surName, email, login, password], (err, result) => {
-      connection.release();
-
-      if (err) {
-        if (err.code === 'ER_DUP_ENTRY') {
-          return res.status(400).json({ success: false, message: 'Login už existuje. Zvoľte iný login.' });
-        } else {
-          console.error(err);
-          return res.status(500).json({ success: false, message: 'Error pri registrácií' });
-        }
-      }
-      
-      return res.status(200).json({ success: true, message: 'Úspešne si sa zaregistroval!' });
-    });
-  });
-});
-
-
+// login page 
+router.post('/post/auth', authController.handleLogin);
 
 module.exports = router;
