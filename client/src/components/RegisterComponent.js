@@ -1,12 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import '../css/css1.css'
+import { useNavigate } from 'react-router-dom';
+import logoImage from '../images/fazula.png';
 
 const LOGIN_REGEX = /^[a-zA-Z][a-zA-Z0-9]{4,20}$/;              // [zacina] [obsahuje] {rozsah/dlzka}
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{4,20}$/; // musí obsahovať jedno male,velke pismeno a cislo
 
 export default function RegisterComponent() {
-    
+    const navigate = useNavigate();
     const loginRef = useRef();
 
     const [formMessage, setFormMessage] = useState('');
@@ -63,16 +65,35 @@ export default function RegisterComponent() {
             setFormMessage(<p className="red">{serverMessage}</p>);
           }
     }
-
-    //TODO: dorobiť stránku "úspešne si sa zaregistroval....."
     
     return (
         
         <div>
         {succ ? <div>
-                    <h1 classname="successfulLogin" style={{color: '#4CAF50'}}>Úspešne si sa registroval!</h1>
-                    <button classname="successfulLogin" style={{color: 'white'}} onClick={()=>{window.location.href = '/login'}}> Login </button>
-                 </div>
+                    <section className="vh-100 gradient-custom">
+                    <div className="container py-5 h-100">
+                        <div className="row d-flex justify-content-center align-items-center h-100">
+                            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                                <div className="card text-white" style={{ borderRadius: '1rem', backgroundColor: '#4CAF50'}}>
+                                    <div className="card-body p-5 text-center">
+                                        <div className="mb-md-5 mt-md-4 pb-5">
+                                            <h2 className="fw-bold mb-2 text-uppercase">Úspešne si sa zaregistroval !</h2>
+                                            <br /><br />
+                                            <img src={logoImage} height="100" alt="Gym Bean" />
+                                            <br /><br />
+                                            <div>
+                                                <p className="mb-0" style={{fontSize: 'large'}}> Tu sa môžeš
+                                                    <a role="button" onClick={() => {navigate("/login")}} className="text-black-50 fw-bold">prihlásiť !</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         : 
         <div>
         <h3>Registrácia</h3>

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import logoImage from '../images/fazula.png';
 import AuthContext from '../AuthProvider'
 import axios from 'axios';
@@ -9,46 +9,44 @@ import axios from 'axios';
 export default function Login() {
     const navigate = useNavigate();
 
-    const {setAuth} = useContext(AuthContext);
+    const {auth, setAuth} = useContext(AuthContext);
 
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [success, setSuccess] = useState(false);
     const [errMsg, setErrMsg] = useState('');
+    const [isLoged, setIsLoged] = useState(false);
 
     const [isAdminos, setIsAdminos] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //backend logic
-
         try {
             const response = await axios.post('http://localhost:4000/post/auth', {login: login, password: password}, { withCredentials: true});
-            console.log(response?.data);
             const isAdmin = response?.data;
-            setIsAdminos(isAdmin);
-            setAuth({login, password, isAdmin});
+            if (response?.data) {
+                setIsLoged(true);
+                setIsAdminos(isAdmin);
+            }
+            setAuth({login, password, isAdmin, isLoged: true});
             setLogin('');
             setPassword('');
             setSuccess(true);
         } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Login or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else if (err.response?.status === 500) {
-                setErrMsg('Server Error');
-            } else {
-                setErrMsg('Login Failed');
-            }
+            setErrMsg(err.response?.data?.message);
         }
     }
 
+    useEffect(() => {
+        if (auth.isLoged) {
+            setIsLoged(true);
+        }
+        console.log(auth);
+    }, [auth]);
+
     return (
         <>
-        {success ?
+        {auth.isLoged ?
         <section className="vh-100 gradient-custom">
         <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
@@ -68,6 +66,10 @@ export default function Login() {
                             <p className="mb-0" style={{fontSize: 'large'}}> Prejdi na
                                 <a role="button" onClick={() => {navigate("/home")}} className="text-black-50 fw-bold">úvodnú stránku</a>
                             </p>
+                            <br></br>
+                            <p className="mb-0" style={{fontSize: 'large'}}> alebo
+                                <a role="button" onClick={() => setAuth({login: '', password: '', isAdmin: '', isLoged: false})} className="text-black-50 fw-bold">odhlásiť sa</a>
+                            </p>
                         </div>
                    
                     </div>
@@ -86,10 +88,10 @@ export default function Login() {
                     <div className="card-body p-5 text-center">
                         <div className="mb-md-5 mt-md-4 pb-5">
 
-                        { errMsg ? <p> {errMsg} </p> : <p></p>}
-                        <br></br>
                         <h2 className="fw-bold mb-2 text-uppercase">Prihlásiť sa</h2>
                         <p className="text-black-50 mb-5 fw-bold">Zadajte svoje prihlasovacie meno a heslo!</p>
+
+                        { errMsg ? <p style={{ borderRadius: '0.3rem', padding: '1px', backgroundColor: 'IndianRed', fontSize: 'medium'}}> {errMsg} </p> : <p></p>}
 
                         <div className="form-outline form-white mb-4">
                             <input type="text"

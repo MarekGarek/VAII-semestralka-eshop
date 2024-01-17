@@ -1,10 +1,13 @@
 import React from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logoImage from '../images/fazula.png';
 import '../css/header.css';
+import AuthContext from '../AuthProvider'
 
 export default function Header() {
   const navigate = useNavigate();
+  const {auth, setAuth} = useContext(AuthContext);
 
   return (
     <div className='gridHeader'>
@@ -32,6 +35,11 @@ export default function Header() {
               <a role="button" onClick={() => navigate("register")}>Registrovať</a>
             </div>
           </div>
+          {auth.isLoged ? 
+          <div>
+          <p style={{width: '100px', paddingLeft: '13px', cursor: 'pointer'}} onClick={()=> setAuth(false)}>Odhlásiť sa</p>
+        </div> 
+        : null}
         </div>
       </div>
 
