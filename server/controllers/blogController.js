@@ -5,7 +5,7 @@ const getBlogs = async (req, res) => {
         if (err) throw err;
     
         try {
-          const guery = `SELECT title,text,read_time,date,blog_type,img,id_blog FROM blog`;
+          const guery = `SELECT title,text,read_time,date,blog_type,img,id_blog,login FROM blog`;
           connection.query(guery, (err, result) => {
             connection.release();
             if (err) throw err;
@@ -20,13 +20,12 @@ const getBlogs = async (req, res) => {
 
 const addBlog = async (req, res) => {
     const image = req.files.blogImg[0].buffer.toString('base64');
-    const { title, text, read_time, blog_type } = req.body;
+    const { title, text, read_time, blog_type, login } = req.body;
     res.send('Príspevok úspešne odoslaný.');
   
     pool.getConnection((err, connection) => {
       try {
         if (err) throw err;
-        const login = "admin";
         const query = `INSERT INTO blog (title, text, read_time, blog_type, img, login, date) VALUES(?,?,?,?,?,?, NOW());`;
         connection.query(query, [title, text, read_time, blog_type,image,login], (err, result) => {
         connection.release();
@@ -49,8 +48,8 @@ const editBlog = async (req, res) => {
       try {
         if (err) throw err;
         const login = "admin";
-        const query = `UPDATE blog SET title=?, text=?, read_time=?, blog_type=?, img=?, login=?, date=NOW() where id_blog=?;`;
-        connection.query(query, [title, text, read_time, blog_type,image,login,id_blog], (err, result) => {
+        const query = `UPDATE blog SET title=?, text=?, read_time=?, blog_type=?, img=?, date=NOW() where id_blog=?;`;
+        connection.query(query, [title, text, read_time, blog_type,image,id_blog], (err, result) => {
         connection.release();
         if (err) throw err;
         console.log('Pridane');

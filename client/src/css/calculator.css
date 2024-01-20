@@ -1,0 +1,42 @@
+.calculateButton{
+    width: 100px;
+    margin-left: 100px;
+}
+
+#weightR, #heightR {
+    width: 20%;
+}
+
+#weightN, #heightN {
+    margin-left: 20px;
+    width: 65px;
+    text-align: center;
+}
+
+.sections {
+    margin-left: 100px;
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+h3 {
+    color: black;
+}
+
+.resPa {
+    margin-left: 100px;
+    font-size: large;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+    #weightR, #heightR {
+        width: 40%;
+    }
+}

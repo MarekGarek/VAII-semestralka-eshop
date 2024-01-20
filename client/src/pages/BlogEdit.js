@@ -1,10 +1,15 @@
 import '../css/blogEdit.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {useLocation} from'react-router-dom';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
+import AuthContext from '../AuthProvider'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function BlogEdit() {
+    const {auth} = useContext(AuthContext);
+    const navigate = useNavigate();
     //získanie parametra z URL
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -41,13 +46,14 @@ export default function BlogEdit() {
         title: title,
         text: text,
         read_time: number,
-        blog_type: blogType
+        blog_type: blogType,
     }
 
     const postData = async () => {
         try {
             const formData = new FormData();
             formData.append('blogImg', img);
+            formData.append('login', auth.login)
             for (let key in data) {
                 formData.append(key, data[key]);
             }
@@ -55,7 +61,7 @@ export default function BlogEdit() {
                 headers: {'Content-Type': 'multipart/form-data'}
             });
             setFormMessage(<p className="formCheck"> {response.formData} </p>);
-            window.location.href = '/blog';
+            navigate('/blog');
           } catch (error) {
             console.error(error);
             setFormMessage(<p className="formError">Chyba pri odosielaní dát</p>);
@@ -72,7 +78,7 @@ export default function BlogEdit() {
         try {
             const response = await axios.put('http://localhost:4000/put/data', formData);
             setFormMessage(<p className="formCheck"> {response.formData} </p>);
-            window.location.href = '/blog';
+            navigate('/blog');
           } catch (error) {
             console.error(error);
             setFormMessage(<p className="formError">Chyba pri odosielaní dát PUT</p>);

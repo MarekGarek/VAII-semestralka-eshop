@@ -2,11 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const routesHandler = require('./routes/handler.js');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 const sessionSecret = 'fallback-secret';
 
+app.use(cookieParser())
 app.use(session({
     secret: sessionSecret,
     resave: false,

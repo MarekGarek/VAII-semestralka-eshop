@@ -17,8 +17,7 @@ export default function Login() {
     const [errMsg, setErrMsg] = useState('');
     const [isLoged, setIsLoged] = useState(false);
 
-    const [isAdminos, setIsAdminos] = useState('');
-
+    axios.defaults.withCredentials = true;
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -26,7 +25,6 @@ export default function Login() {
             const isAdmin = response?.data;
             if (response?.data) {
                 setIsLoged(true);
-                setIsAdminos(isAdmin);
             }
             setAuth({login, password, isAdmin, isLoged: true});
             setLogin('');
@@ -56,7 +54,7 @@ export default function Login() {
                     <div className="mb-md-5 mt-md-4 pb-5">
                         <h2 className="fw-bold mb-2 text-uppercase">Úspešne si sa prihlásil !</h2>
 
-                        <p>{isAdminos === 'Y' ? 'Máš admin práva!' : '' }</p>
+                        <p>{auth.isAdmin === 'Y' ? 'Máš admin práva!' : '' }</p>
 
                         <br /><br />
                         <img src={logoImage} height="100" alt="Gym Bean" />
@@ -68,7 +66,7 @@ export default function Login() {
                             </p>
                             <br></br>
                             <p className="mb-0" style={{fontSize: 'large'}}> alebo
-                                <a role="button" onClick={() => setAuth({login: '', password: '', isAdmin: '', isLoged: false})} className="text-black-50 fw-bold">odhlásiť sa</a>
+                                <a role="button" onClick={() => {setAuth({login: '', password: '', isAdmin: '', isLoged: false});fetch('/logout')}} className="text-black-50 fw-bold">odhlásiť sa</a>
                             </p>
                         </div>
                    

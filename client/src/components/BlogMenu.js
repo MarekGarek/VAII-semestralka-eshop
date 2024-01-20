@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function BlogMenu() {
+    const navigate = useNavigate();
+
     return(
         <div className="grid-container4">
             <div className="grid-item4">
@@ -17,7 +21,7 @@ export default function BlogMenu() {
                 <button className="button">ZDRAVÝ ŽIVOTNÝ ŠTÝL</button>
             </div>
             <div className="grid-item4">
-                <button className="button">FITNESS KALKULAČKY</button>
+                <button className="button" onClick={() => navigate("/blog/calculator")}>FITNESS KALKULAČKA</button>
             </div>
         </div>
     )

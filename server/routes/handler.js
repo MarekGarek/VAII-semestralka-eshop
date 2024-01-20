@@ -35,5 +35,7 @@ router.post('/post/register', registerController.sendRegisterForm);
 
 // login page 
 router.post('/post/auth', authController.handleLogin);
+router.get('/logout', authController.logOut);
+router.get('/isLogged', authController.isLogged);
 
 module.exports = router;

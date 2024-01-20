@@ -19,7 +19,6 @@ export default function Home() {
 
     return (
         <>
-
         <Carousel/>
         <div className="grid-container1">
             <div className="grid-item1"><i className="bi bi-bag-heart-fill"> 25M+ <em className="odsek-text">spokojných zákazníkov &nbsp;&nbsp;</em></i></div>

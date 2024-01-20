@@ -1,25 +1,20 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from'react-router-dom';
+import AuthContext from '../AuthProvider'
 
 function Post({item}) {
     const navigate = useNavigate();
-    let title=item.title;
-    let text=item.text
-    let read_time=item.read_time
-    let date=item.date
-    let blog_type=item.blog_type
-    let img=item.img
-    let id=item.id_blog
+    const {auth} = useContext(AuthContext);
 
     // kodovanie objektu aby sa dal poslat ako parameter cez URL
     let jsonItem = JSON.stringify(item);
     const encodedJsonItem = encodeURIComponent(jsonItem);
-
+    
     const handleDelete = async (id) => {
         try {
             await axios.delete(`/blog/delete/${id}`);
-            window.location.reload();
+            navigate(0);
         } catch (error) {
             console.log(error);
         }
@@ -30,17 +25,24 @@ function Post({item}) {
             <div className="item1">
                 <img className="obrazok" src={`data:image/png;base64,${item.img}`} alt="obrazok" />
             </div>
-            <div className="item2">{title}</div>
-            <div className="item3">{text}</div>
+            <div className="item2">{item.title}</div>
+            <div className="item3">{item.text}</div>
             <div className="item4">
-                <p>{blog_type}</p>
-                <p>{date}</p>
-                <p>Čas čítania {read_time} min.</p>
+                <p>{item.blog_type}</p>
+                <p>{item.date}</p>
+                <p>Čas čítania {item.read_time} min.</p>
+                <p>Autor: {item.login} </p>
             </div>
             <div className="item5">
+                
                 <button className="button2">ČÍTAJ VIAC</button>
-                <button className="edit" onClick={() => navigate(`/blog/edit?id=${encodedJsonItem}`)}>EDIT</button> 
-                <button className="delete" onClick={() => handleDelete(id)}>DELETE</button>
+                {auth.isLoged && (item.login === auth.login || auth.isAdmin === 'Y') ? 
+                <>
+                    <button className="delete" onClick={() => handleDelete(item.id_blog)}>DELETE</button>
+                    <button className="edit" onClick={() => navigate(`/blog/edit?id=${encodedJsonItem}`)}>EDIT</button> 
+                </>
+                : null}
+                
             </div>
         </div>
     );
