@@ -146,12 +146,14 @@ export default function BlogEdit() {
                 <br></br>  
                 
                 <div className="readTime">
+                    <label for="readTime">Čas čítania:</label>
                     <input type="number" min="1" max="60" step="1" required
                         value={number} onChange={(e) => setNumber(e.target.value)}></input>
                 </div>
                 <br></br>
                 
                 <div className="blogType">
+                    <label for="blogType">Zaradenie:</label>
                     <select value={blogType} onChange={(e) => setBlogType(e.target.value)}>
                         {options.map((option, index) => (
                             <option key={index} value={option}>{option}</option>

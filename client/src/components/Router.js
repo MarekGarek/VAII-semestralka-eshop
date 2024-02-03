@@ -8,6 +8,7 @@ import Register from '../pages/Register';
 import BlogEdit from '../pages/BlogEdit';
 import Header from '../components/Header';
 import Calculator from '../pages/Calculator';
+import Reviews from '../pages/Reviews';
 
 export default function Router() {
 
@@ -29,6 +30,7 @@ export default function Router() {
                 <Route path="/" element={<Layout />}>
                     <Route path="home" element={<Home />} />
                     <Route path="/" element={<Home />} />
+                    <Route path="reviews" element={<Reviews />} />
                     <Route path="blog" element={<Blog />}/>
                     <Route path="blog/edit" element={<BlogEdit />} />
                     <Route path="blog/calculator" element={<Calculator />} />

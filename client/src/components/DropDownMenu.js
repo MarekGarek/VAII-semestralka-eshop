@@ -40,13 +40,7 @@ export default function DropDownMenu() {
             </div>
             <div className="grid-item2">
                 <div className="dropdown2">
-                    <button className="dropbtn">PRÍSLUŠENSTVO</button>
-                    <div className="dropdown-content">
-                        <a href="#">Tašky</a>
-                        <a href="#">Pomôcky na cvičenie</a>
-                        <a href="#">Pomôcky na doma</a>
-                        <a href="#">Ostatné</a>
-                    </div>
+                <button onClick={() => navigate('reviews')} className="dropbtn">ČO SI O NÁS MYSLIA ZÁKAZNÍCI</button>
                 </div>
             </div>
             <div className="grid-item2">
