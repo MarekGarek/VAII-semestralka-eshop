@@ -27,7 +27,7 @@
   
 .grid-reviews > div {
    background-color: white;
-   padding: 2px;
+   padding: 2px 15px 2px 15px;
 }
 
 .header {
@@ -51,6 +51,8 @@
 .bool {
     font-weight: bold;
     text-align: center;
+    display: flex;
+    align-items: center;
 }
 
 .bool,.user,.date {

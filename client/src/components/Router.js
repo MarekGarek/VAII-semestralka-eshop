@@ -9,6 +9,7 @@ import BlogEdit from '../pages/BlogEdit';
 import Header from '../components/Header';
 import Calculator from '../pages/Calculator';
 import Reviews from '../pages/Reviews';
+import ReviewsEdit from '../pages/ReviewsEdit';
 
 export default function Router() {
 
@@ -31,6 +32,7 @@ export default function Router() {
                     <Route path="home" element={<Home />} />
                     <Route path="/" element={<Home />} />
                     <Route path="reviews" element={<Reviews />} />
+                    <Route path="reviews/edit" element={<ReviewsEdit />} />
                     <Route path="blog" element={<Blog />}/>
                     <Route path="blog/edit" element={<BlogEdit />} />
                     <Route path="blog/calculator" element={<Calculator />} />

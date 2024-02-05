@@ -12,7 +12,7 @@ export default function Reviews() {
         {auth.isLoged ?
         <>
             <div className="h3div">
-                <h3>Hodnotenia našich zákazníkov: <button className="btn-add-review" onClick={() => navigate("/blog/edit")} >Napíš recenziu</button> </h3>
+                <h3>Hodnotenia našich zákazníkov: <button className="btn-add-review" onClick={() => navigate("/reviews/edit")} >Napíš recenziu</button> </h3>
             </div>
         </> 
         : 
@@ -75,7 +75,15 @@ export default function Reviews() {
             <div className="user redBG">Jaro12</div>
             <div className="date redBG">13.2.2024</div>
         </div>
-        <br/>
+
+        <div className="navbar-bottom">
+            <a href="#" className="active">1</a>
+            <a href="#">2</a>
+            <a>3</a>
+            <a>...</a>
+            <a>106</a>
+        </div>
+
         </>       
     )
 }
