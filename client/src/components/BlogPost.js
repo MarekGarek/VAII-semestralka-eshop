@@ -20,6 +20,11 @@ function Post({item}) {
         }
     }
 
+    function formatDate(date){
+        let enDate = new Date(item.date).toISOString().slice(0,10);
+        return enDate.split('-').reverse().join('.');
+    }
+
     return(
         <div className="grid-container5">
             <div className="item1">
@@ -29,7 +34,7 @@ function Post({item}) {
             <div className="item3">{item.text}</div>
             <div className="item4">
                 <p>{item.blog_type}</p>
-                <p>{item.date}</p>
+                <p>{formatDate(item.date)}</p>
                 <p>Čas čítania {item.read_time} min.</p>
                 <p>Autor: {item.login} </p>
             </div>

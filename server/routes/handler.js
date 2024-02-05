@@ -6,6 +6,7 @@ const homeController = require('../controllers/homeController');
 const blogController = require('../controllers/blogController');
 const registerController = require('../controllers/registerController');
 const authController = require('../controllers/authController');
+const reviewsController = require('../controllers/reviewsController');
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -37,5 +38,9 @@ router.post('/post/register', registerController.sendRegisterForm);
 router.post('/post/auth', authController.handleLogin);
 router.get('/logout', authController.logOut);
 router.get('/isLogged', authController.isLogged);
+
+// reviews page
+router.get('/get/reviews', reviewsController.getReviews);
+router.delete('/reviews/delete/:id', reviewsController.deleteReview);
 
 module.exports = router;
