@@ -37,7 +37,10 @@ export default function Header() {
           </div>
           {auth.isLoged ? 
           <div>
-          <p style={{width: '100px', paddingLeft: '13px', cursor: 'pointer'}} onClick={()=> {setAuth(false);fetch('/logout'); navigate("login")}}>Odhlásiť sa</p>
+          <p style={{width: '100px', paddingLeft: '13px', cursor: 'pointer'}} 
+             onClick={()=> {setAuth(false);fetch('/logout'); navigate("login")}}>
+              Odhlásiť sa <f style={{fontWeight: "bolder"}}>{auth.login}</f>
+          </p>
         </div> 
         : null}
         </div>

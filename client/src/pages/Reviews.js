@@ -55,14 +55,18 @@ function OneReview({item}) {
         }
     }
 
+    // kodovanie objektu aby sa dal poslat ako parameter cez URL
+    let jsonItem = JSON.stringify(item);
+    const encodedJsonItem = encodeURIComponent(jsonItem);
+
     return (
         <>
         <div className={`grid-reviews ${background}`}>
             <div className="review" dangerouslySetInnerHTML={{ __html: drawStars(item.stars) }} />
             <div className="editik">
-            {auth.isLoged && (item.login === auth.login || auth.isAdmin === 'Y') ? 
+            {auth.isLoged && (item.user === auth.login || auth.isAdmin === 'Y') ? 
                 <>
-                    <button className="edit-review"> 
+                    <button className="edit-review" onClick={() => navigate(`/reviews/edit?id=${encodedJsonItem}`)}> 
                         <i class="bi bi-pen"></i> 
                     </button>
                     &nbsp;&nbsp;&nbsp;

@@ -47,7 +47,6 @@ const editBlog = async (req, res) => {
     pool.getConnection((err, connection) => {
       try {
         if (err) throw err;
-        const login = "admin";
         const query = `UPDATE blog SET title=?, text=?, read_time=?, blog_type=?, img=?, date=NOW() where id_blog=?;`;
         connection.query(query, [title, text, read_time, blog_type,image,id_blog], (err, result) => {
         connection.release();

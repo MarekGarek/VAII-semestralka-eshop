@@ -42,5 +42,7 @@ router.get('/isLogged', authController.isLogged);
 // reviews page
 router.get('/get/reviews', reviewsController.getReviews);
 router.delete('/reviews/delete/:id', reviewsController.deleteReview);
+router.post('/post/review', reviewsController.addReview);
+router.put('/put/review', reviewsController.editReview);
 
 module.exports = router;

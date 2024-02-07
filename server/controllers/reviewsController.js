@@ -38,9 +38,49 @@ const deleteReview = async (req, res) => {
     })
 };
 
+const addReview = async (req, res) => {
+  const { title, text, stars, recommendation,login } = req.body;
+  res.send('Príspevok úspešne odoslaný.');
+
+  pool.getConnection((err, connection) => {
+    try {
+      if (err) throw err;
+      const query = `INSERT INTO reviews (title, text, user, stars, recommendation, date) VALUES(?,?,?,?,?, NOW());`;
+      connection.query(query, [title, text, login, stars, recommendation], (err, result) => {
+      connection.release();
+      if (err) throw err;
+      console.log('Pridane');
+    });
+      res.end();
+    } catch (err) {
+      console.log(err);
+    }
+  })
+};
+
+const editReview = async (req, res) => {
+  const { title, text, stars, recommendation, idreview } = req.body;
+  res.send('Príspevok úspešne odoslaný.');
+
+  pool.getConnection((err, connection) => {
+    try {
+      if (err) throw err;
+      const query = `UPDATE reviews SET title=?, text=?, stars=?, recommendation=?, date=NOW() where idreviews=?;`;
+      connection.query(query, [title, text, stars, recommendation,idreview], (err, result) => {
+      connection.release();
+      if (err) throw err;
+      console.log('Pridane');
+    });
+      res.end();
+    } catch (err) {
+      console.log(err);
+    }
+  })
+};
+
 module.exports = {
   getReviews,
-  //addReview,
-  //editReview,
+  addReview,
+  editReview,
   deleteReview
 };

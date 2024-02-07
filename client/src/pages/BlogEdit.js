@@ -17,29 +17,13 @@ export default function BlogEdit() {
     //dekodovanie parametra 
     const encodedJsonItem = decodeURIComponent(encoded);
     const item = JSON.parse(encodedJsonItem);
-    
-    let dbTitle, dbText, dbImg, dbNumber, dbBlogType;
 
-    if (item !== null) {
-        dbTitle = item.title;
-        dbText = item.text;
-        dbImg = item.img;
-        dbNumber = item.read_time;
-        dbBlogType = item.blog_type;
-    } else {
-        dbTitle = '';
-        dbText = '';
-        dbImg = '';
-        dbNumber = '';
-        dbBlogType = '';
-    }
-
-    let [title, setTitle] = useState(() => { return dbTitle});
-    let [text, setText] = useState(() => { return dbText});
-    let [number, setNumber] = useState(() => { return dbNumber});
-    let [blogType, setBlogType] = useState(() => { return dbBlogType});
+    let [title, setTitle] = useState(() => { return item ? item.title : " "});
+    let [text, setText] = useState(() => { return item ? item.text : " "});
+    let [number, setNumber] = useState(() => { return item ? item.read_time : " "});
+    let [blogType, setBlogType] = useState(() => { return item ? item.blog_type : ""});
     let [formMessage, setFormMessage] = useState('');
-    let [img, setImg] = useState(() => { return dbImg});
+    let [img, setImg] = useState(() => { return item ? item.img : " "});
     let [image, setImage] = useState(null);
 
     let data = {
@@ -116,6 +100,7 @@ export default function BlogEdit() {
         handleImageUpload(event);
       };
 
+    let dbBlogType;
     const options = [dbBlogType, "Fitness recepty", "Výživové doplnky", "Strava a zdravý životný štýl", "Cviky a tréningy"].filter((value, index, self) => self.indexOf(value) === index);
 
     return (
